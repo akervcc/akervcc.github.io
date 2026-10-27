@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    .spade { fill: #d97706; }
+    @media (prefers-color-scheme: dark) {
+      .spade { fill: #fbbf24; }
+    }
+  </style>
+  <!-- Spade symbol -->
+  <path class="spade" d="M50 10 C50 10, 15 40, 15 58 C15 72, 28 80, 42 75 C38 82, 35 90, 35 90 L65 90 C65 90, 62 82, 58 75 C72 80, 85 72, 85 58 C85 40, 50 10, 50 10 Z"/>
+</svg>
