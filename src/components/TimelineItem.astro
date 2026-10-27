@@ -1,4 +1,6 @@
 ---
+import { getLang, useT } from '../i18n'
+
 interface Props {
   company: string
   position: string
@@ -10,6 +12,7 @@ interface Props {
 }
 
 const { company, position, startDate, endDate, location, duration: durationLabel, stack = [] } = Astro.props
+const t = useT(getLang(Astro.url))
 
 function formatDate(dateStr: string): string {
   const [year, month] = dateStr.split('-')
@@ -31,7 +34,7 @@ function calculateDuration(start: string, end?: string): string {
 }
 
 const displayStart = formatDate(startDate)
-const displayEnd = endDate ? formatDate(endDate) : '至今'
+const displayEnd = endDate ? formatDate(endDate) : t('exp.present')
 const duration = durationLabel ?? calculateDuration(startDate, endDate)
 ---
 

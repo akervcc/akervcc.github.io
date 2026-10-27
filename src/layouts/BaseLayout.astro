@@ -3,17 +3,19 @@ import '../styles/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import { site } from '../data/site'
+import { getLang, htmlLang, langs, switchPath, ui } from '../i18n'
 
 interface Props {
   title: string
   description?: string
 }
 
-const { title, description = site.description } = Astro.props
+const lang = getLang(Astro.url)
+const { title, description = ui[lang]['meta.description'] } = Astro.props
 ---
 
 <!doctype html>
-<html lang="zh-TW" class="scroll-smooth">
+<html lang={htmlLang[lang]} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +23,10 @@ const { title, description = site.description } = Astro.props
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, site.url)} />
+    {langs.map((l) => (
+      <link rel="alternate" hreflang={htmlLang[l]} href={new URL(switchPath(Astro.url, l), site.url)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(switchPath(Astro.url, 'zh'), site.url)} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <!-- Prevent flash of wrong theme -->

@@ -1,8 +1,17 @@
 ---
 import { site, navLinks } from '../data/site'
+import { getLang, localePath, switchPath, useT } from '../i18n'
 
+const lang = getLang(Astro.url)
+const t = useT(lang)
+const other = lang === 'zh' ? 'en' : 'zh'
+const links = navLinks.map((l) => ({ href: localePath(lang, l.href), label: t(l.key) }))
+const home = localePath(lang, '/').replace(/\/$/, '') || '/'
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
-const isActive = (href: string) => (href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(href + '/'))
+const isActive = (href: string) => {
+  const h = href.replace(/\/$/, '') || '/'
+  return h === home ? currentPath === home : currentPath === h || currentPath.startsWith(h + '/')
+}
 const linkClass = (href: string) => [
   'text-sm transition-colors',
   isActive(href)
@@ -13,22 +22,32 @@ const linkClass = (href: string) => [
 
 <header class="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur transition-colors">
   <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="leading-tight group">
+    <a href={localePath(lang, '/')} class="leading-tight group">
       <span class="block text-[15px] font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors">{site.name}</span>
       <span class="block text-[11px] tracking-[0.16em] uppercase text-slate-500">{site.title}</span>
     </a>
 
     <div class="flex items-center gap-2 md:gap-8">
       <ul class="hidden md:flex items-center gap-8">
-        {navLinks.map((link) => (
+        {links.map((link) => (
           <li><a href={link.href} class:list={linkClass(link.href)}>{link.label}</a></li>
         ))}
       </ul>
 
+      <a
+        href={switchPath(Astro.url, other)}
+        hreflang={other === 'en' ? 'en' : 'zh-TW'}
+        lang={other === 'en' ? 'en' : 'zh-TW'}
+        aria-label={t('lang.switchLabel')}
+        class="px-2.5 py-1 rounded-md border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+      >
+        {t('lang.switch')}
+      </a>
+
       <button
         id="theme-toggle"
         class="p-2 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
-        aria-label="切換深色模式"
+        aria-label={t('theme.toggle')}
       >
         <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -41,7 +60,7 @@ const linkClass = (href: string) => [
       <button
         id="menu-toggle"
         class="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
-        aria-label="開啟選單"
+        aria-label={t('menu.open')}
         aria-expanded="false"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +72,7 @@ const linkClass = (href: string) => [
 
   <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
     <ul class="px-6 py-4 space-y-4">
-      {navLinks.map((link) => (
+      {links.map((link) => (
         <li><a href={link.href} class:list={['block', ...linkClass(link.href)]}>{link.label}</a></li>
       ))}
     </ul>

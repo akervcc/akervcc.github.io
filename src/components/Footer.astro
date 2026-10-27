@@ -1,12 +1,15 @@
 ---
 import { site } from '../data/site'
+import { getLang, useT } from '../i18n'
+
+const t = useT(getLang(Astro.url))
 
 const currentYear = new Date().getFullYear()
 ---
 
 <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 transition-colors">
   <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="text-sm text-slate-500 dark:text-slate-400">&copy; {currentYear} {site.name}. 穩扎穩打，細水長流。</p>
+    <p class="text-sm text-slate-500 dark:text-slate-400">&copy; {currentYear} {site.name}. {t('footer.tagline')}</p>
     <div class="flex items-center gap-5 text-sm">
       <a href={`mailto:${site.email}`} class="text-slate-500 hover:text-brand-700 dark:hover:text-brand-300 transition-colors">{site.email}</a>
       <a href={site.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors" aria-label="GitHub">

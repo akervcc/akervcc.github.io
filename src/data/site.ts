@@ -2,15 +2,15 @@
 export const site = {
   name: 'Aker',
   title: 'Senior Software Engineer',
-  description: 'Aker 的個人網站：資深 Java 後端工程師的經歷、技能與作品。',
   email: 'akervcc@gmail.com',
   github: 'https://github.com/akervcc',
   url: 'https://akervcc.github.io',
 }
 
+// href 不含語言前綴，顯示時用 localePath() 轉成各語言的網址
 export const navLinks = [
-  { href: '/', label: '關於' },
-  { href: '/experience', label: '經歷' },
-  { href: '/projects', label: '作品' },
-  { href: '/contact', label: '聯絡' },
-]
+  { href: '/', key: 'nav.about' },
+  { href: '/experience', key: 'nav.experience' },
+  { href: '/projects', key: 'nav.projects' },
+  { href: '/contact', key: 'nav.contact' },
+] as const

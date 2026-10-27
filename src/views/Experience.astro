@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import TimelineItem from '../components/TimelineItem.astro'
+import { site } from '../data/site'
+import { profile } from '../data/profile'
+import { getExperiences } from '../lib/content'
+import { useT, type Lang } from '../i18n'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useT(lang)
+const p = profile[lang]
+const sortedExperiences = await getExperiences(lang)
+---
+
+
+<BaseLayout title={`${t('title.experience')}｜${site.name}`}>
+  <section class="py-16 md:py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 animate-slide-up">{t('exp.title')}</h1>
+      <p class="mt-4 text-slate-600 dark:text-slate-400">
+        {p.summary}
+      </p>
+
+
+      <!-- Timeline -->
+      <div class="mt-12">
+        {sortedExperiences.length > 0 ? (
+          sortedExperiences.map(async (exp) => {
+            const { Content } = await exp.render()
+            return (
+              <TimelineItem
+                company={exp.data.company}
+                position={exp.data.position}
+                startDate={exp.data.startDate}
+                endDate={exp.data.endDate}
+                location={exp.data.location}
+                duration={exp.data.duration}
+                stack={exp.data.stack}
+              >
+                <Content />
+              </TimelineItem>
+            )
+          })
+        ) : (
+          <p class="text-slate-500 dark:text-slate-500">{t('exp.empty')}</p>
+        )}
+      </div>
+
+      <!-- Skills Section -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{t('exp.skills')}</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          {p.skillGroups.map((g) => (
+            <div class="rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+              <h3 class="text-xs font-medium text-slate-500 uppercase tracking-[0.16em]">{g.name}</h3>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {g.skills.map((skill) => (
+                  <span class="px-2.5 py-1 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{skill}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100">{t('exp.education')}</h2>
+        <ul class="mt-6 space-y-3">
+          {p.education.map((e) => (
+            <li class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border border-slate-200 dark:border-slate-800 rounded-lg px-5 py-4">
+              <span class="text-sm text-slate-500 sm:w-44 shrink-0">{e.period}</span>
+              <span class="text-slate-900 dark:text-slate-100 font-medium">{e.school}</span>
+              <span class="text-slate-600 dark:text-slate-400">{e.program}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

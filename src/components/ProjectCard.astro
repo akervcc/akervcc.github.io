@@ -4,15 +4,15 @@ interface Props {
   description: string
   image?: string
   tags: string[]
-  slug: string
+  href: string
   stats?: { value: string; label: string }[]
 }
 
-const { title, description, image, tags, slug, stats } = Astro.props
+const { title, description, image, tags, href, stats } = Astro.props
 ---
 
 <a
-  href={`/projects/${slug}`}
+  href={href}
   class="group flex flex-col h-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-md transition-all"
 >
   {image && (
