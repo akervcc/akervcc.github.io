@@ -1,6 +1,6 @@
 ---
 company: "新時代多媒體有限公司"
-position: "Software Engineer"
+position: "Senior Full-Stack Engineer"
 startDate: "2019-03"
 endDate: "2020-06"
 duration: "1 yr 4 mos"

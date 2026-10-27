@@ -2,9 +2,9 @@
 import type { Lang } from '../i18n'
 
 const skills = {
-  backend: ['Java 8–21', 'Spring Boot 2/3', 'MyBatis / MyBatis-Plus', 'Sa-Token', 'MySQL', 'Redis', 'Kafka', 'RESTful API', 'Webhook', 'Microservice'],
-  frontend: ['Vue 2/3', 'TypeScript', 'Element Plus', 'JavaScript (ES6+)', 'HTML5', 'jQuery'],
-  tools: ['Docker Compose', 'Git / Gitflow', 'Claude Code', 'MCP', 'n8n'],
+  backend: ['Java 8–21', 'Spring Boot 2/3', 'MyBatis / MyBatis-Plus', 'Sa-Token', 'Kafka', 'Microservice'],
+  frontend: ['Vue 2/3', 'TypeScript', 'Element Plus', 'Tailwind CSS', 'Astro'],
+  engineering: ['Docker Compose', 'Git / Gitflow', 'RBAC'],
 }
 
 export const profile = {
@@ -31,9 +31,11 @@ export const profile = {
     hobbies: '德州撲克、偶爾彈彈鋼琴、電玩休閒玩家。',
     skillGroups: [
       { name: '後端', skills: skills.backend },
+      { name: '資料與快取', skills: ['MySQL（SQL 調校）', 'Redis', 'Caffeine', 'Flyway'] },
       { name: '前端', skills: skills.frontend },
-      { name: '工具', skills: skills.tools },
-      { name: '系統整合', skills: ['第三方支付 API', 'Google Maps API', 'Telegram API', 'WhatsApp API', 'Viber API'] },
+      { name: '金流與整合', skills: ['第三方支付 API', 'USDT 充提（TRC20/ERC20）', '第三方遊戲串接', 'Telegram / WhatsApp / Viber', 'Webhook'] },
+      { name: 'AI 與自動化', skills: ['Claude Code', 'MCP（Stitch、Chrome DevTools）', '自訂 Skills', 'n8n'] },
+      { name: '工程實務', skills: skills.engineering },
     ],
     education: [
       { period: '2014/05 – 2014/10', school: '資策會', program: 'Java 企業級軟體工程師養成班' },
@@ -63,9 +65,11 @@ export const profile = {
     hobbies: 'Texas Hold’em, playing the piano now and then, and casual gaming.',
     skillGroups: [
       { name: 'Backend', skills: skills.backend },
+      { name: 'Data & caching', skills: ['MySQL (SQL tuning)', 'Redis', 'Caffeine', 'Flyway'] },
       { name: 'Frontend', skills: skills.frontend },
-      { name: 'Tools', skills: skills.tools },
-      { name: 'Integration', skills: ['Third-party payment APIs', 'Google Maps API', 'Telegram API', 'WhatsApp API', 'Viber API'] },
+      { name: 'Payments & integrations', skills: ['Third-party payment APIs', 'USDT payments (TRC20/ERC20)', 'Third-party game integration', 'Telegram / WhatsApp / Viber', 'Webhook'] },
+      { name: 'AI & automation', skills: ['Claude Code', 'MCP (Stitch, Chrome DevTools)', 'Custom Skills', 'n8n'] },
+      { name: 'Engineering', skills: skills.engineering },
     ],
     education: [
       { period: '2014/05 – 2014/10', school: 'Institute for Information Industry (III)', program: 'Java Enterprise Software Engineer Program' },

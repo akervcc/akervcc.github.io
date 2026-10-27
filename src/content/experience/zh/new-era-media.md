@@ -1,6 +1,6 @@
 ---
 company: "新時代多媒體有限公司"
-position: "軟體工程師"
+position: "資深全端工程師"
 startDate: "2019-03"
 endDate: "2020-06"
 duration: "1 年 4 個月"

@@ -7,7 +7,7 @@ duration: "3 mos"
 stack: ["Spring Boot", "MyBatis", "MySQL", "Redis", "Kafka"]
 ---
 
-**Exchange Platform**
+**Crypto Exchange Platform**
 
 - Designed and built payment and transaction features, including crypto and fiat currency conversion
 - Improved system performance by resolving slow queries in the legacy system
