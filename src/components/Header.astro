@@ -2,56 +2,47 @@
 import { site, navLinks } from '../data/site'
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
+const isActive = (href: string) => (href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(href + '/'))
+const linkClass = (href: string) => [
+  'text-sm transition-colors',
+  isActive(href)
+    ? 'text-brand-700 dark:text-brand-300 font-medium'
+    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100',
+]
 ---
 
-<header class="border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors">
-  <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" class="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-2">
-      <span class="text-amber-600 dark:text-amber-400">♠</span>
-      {site.name}
+<header class="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur transition-colors">
+  <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="leading-tight group">
+      <span class="block text-[15px] font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors">{site.name}</span>
+      <span class="block text-[11px] tracking-[0.16em] uppercase text-slate-500">{site.title}</span>
     </a>
 
-    <div class="flex items-center gap-4">
-      <!-- Desktop Navigation -->
+    <div class="flex items-center gap-2 md:gap-8">
       <ul class="hidden md:flex items-center gap-8">
         {navLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class:list={[
-                'text-sm transition-colors',
-                currentPath === link.href
-                  ? 'text-amber-600 dark:text-amber-400 font-medium'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
-              ]}
-            >
-              {link.label}
-            </a>
-          </li>
+          <li><a href={link.href} class:list={linkClass(link.href)}>{link.label}</a></li>
         ))}
       </ul>
 
-      <!-- Dark Mode Toggle -->
       <button
         id="theme-toggle"
-        class="p-2 text-gray-600 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+        class="p-2 text-slate-500 dark:text-slate-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
         aria-label="切換深色模式"
       >
-        <!-- Sun icon (shown in dark mode) -->
         <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
-        <!-- Moon icon (shown in light mode) -->
         <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       </button>
 
-      <!-- Mobile Menu Button -->
       <button
         id="menu-toggle"
-        class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        class="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
         aria-label="開啟選單"
+        aria-expanded="false"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -60,23 +51,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     </div>
   </nav>
 
-  <!-- Mobile Navigation -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 dark:border-gray-800">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
     <ul class="px-6 py-4 space-y-4">
       {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              'block text-sm transition-colors',
-              currentPath === link.href
-                ? 'text-amber-600 dark:text-amber-400 font-medium'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
-            ]}
-          >
-            {link.label}
-          </a>
-        </li>
+        <li><a href={link.href} class:list={['block', ...linkClass(link.href)]}>{link.label}</a></li>
       ))}
     </ul>
   </div>
@@ -88,7 +66,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
   const themeToggle = document.getElementById('theme-toggle')
 
   menuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden')
+    const open = !mobileMenu?.classList.toggle('hidden')
+    menuToggle.setAttribute('aria-expanded', String(open))
   })
 
   themeToggle?.addEventListener('click', () => {

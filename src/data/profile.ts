@@ -5,25 +5,20 @@ export const summary =
 
 export const yearsOfExperience = '10+'
 
-// 撲克花色只是分組記號，不代表程度
 export const skillGroups = [
   {
-    suit: '♠',
     name: 'Backend',
     skills: ['Java 8–21', 'Spring Boot 2/3', 'MyBatis / MyBatis-Plus', 'Sa-Token', 'MySQL', 'Redis', 'Kafka', 'RESTful API', 'Webhook', 'Microservice'],
   },
   {
-    suit: '♥',
     name: 'Frontend',
     skills: ['Vue 2/3', 'TypeScript', 'Element Plus', 'JavaScript (ES6+)', 'HTML5', 'jQuery'],
   },
   {
-    suit: '♣',
     name: 'Tools',
     skills: ['Docker Compose', 'Git / Gitflow', 'Claude Code', 'MCP', 'n8n'],
   },
   {
-    suit: '♦',
     name: 'Integration',
     skills: ['第三方支付 API', 'Google Maps API', 'Telegram API', 'WhatsApp API', 'Viber API'],
   },

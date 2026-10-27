@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import TimelineItem from '../components/TimelineItem.astro'
 import { getCollection } from 'astro:content'
 import { site } from '../data/site'
-import { summary, skillGroups, education, yearsOfExperience } from '../data/profile'
+import { summary, skillGroups, education } from '../data/profile'
 
 const experiences = await getCollection('experience')
 const sortedExperiences = experiences.sort((a, b) => {
@@ -17,8 +17,8 @@ const sortedExperiences = experiences.sort((a, b) => {
 <BaseLayout title={`經歷｜${site.name}`}>
   <section class="py-16 md:py-24">
     <div class="max-w-3xl mx-auto px-6">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 animate-slide-up">工作經歷</h1>
-      <p class="mt-4 text-gray-600 dark:text-gray-400">
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 animate-slide-up">工作經歷</h1>
+      <p class="mt-4 text-slate-600 dark:text-slate-400">
         {summary}
       </p>
 
@@ -26,7 +26,7 @@ const sortedExperiences = experiences.sort((a, b) => {
       <!-- Timeline -->
       <div class="mt-12">
         {sortedExperiences.length > 0 ? (
-          sortedExperiences.map(async (exp, index) => {
+          sortedExperiences.map(async (exp) => {
             const { Content } = await exp.render()
             return (
               <TimelineItem
@@ -37,29 +37,26 @@ const sortedExperiences = experiences.sort((a, b) => {
                 location={exp.data.location}
                 duration={exp.data.duration}
                 stack={exp.data.stack}
-                index={index}
               >
                 <Content />
               </TimelineItem>
             )
           })
         ) : (
-          <p class="text-gray-500 dark:text-gray-500">尚無工作經歷資料。</p>
+          <p class="text-slate-500 dark:text-slate-500">尚無工作經歷資料。</p>
         )}
       </div>
 
       <!-- Skills Section -->
       <div class="mt-16">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">技能手牌</h2>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-500">{yearsOfExperience} 年開發經驗，依領域分成四種花色。</p>
-        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">技能</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
           {skillGroups.map((g) => (
-            <div class="relative bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm">
-              <div class:list={['absolute top-3 right-4 text-3xl', g.suit === '♥' || g.suit === '♦' ? 'text-red-500/70' : 'text-gray-900/60 dark:text-gray-100/60']}>{g.suit}</div>
-              <h3 class="font-semibold text-gray-900 dark:text-gray-100">{g.name}</h3>
-              <div class="mt-3 flex flex-wrap gap-2 pr-8">
+            <div class="rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+              <h3 class="text-xs font-medium text-slate-500 uppercase tracking-[0.16em]">{g.name}</h3>
+              <div class="mt-3 flex flex-wrap gap-2">
                 {g.skills.map((skill) => (
-                  <span class="px-2.5 py-1 text-sm rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">{skill}</span>
+                  <span class="px-2.5 py-1 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{skill}</span>
                 ))}
               </div>
             </div>
@@ -69,13 +66,13 @@ const sortedExperiences = experiences.sort((a, b) => {
 
       <!-- Education -->
       <div class="mt-16">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">學歷與訓練</h2>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100">學歷與訓練</h2>
         <ul class="mt-6 space-y-3">
           {education.map((e) => (
-            <li class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 bg-stone-50 dark:bg-gray-800 rounded-lg px-5 py-4">
-              <span class="text-sm text-gray-500 sm:w-44 shrink-0">{e.period}</span>
-              <span class="text-gray-900 dark:text-gray-100 font-medium">{e.school}</span>
-              <span class="text-gray-600 dark:text-gray-400">{e.program}</span>
+            <li class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border border-slate-200 dark:border-slate-800 rounded-lg px-5 py-4">
+              <span class="text-sm text-slate-500 sm:w-44 shrink-0">{e.period}</span>
+              <span class="text-slate-900 dark:text-slate-100 font-medium">{e.school}</span>
+              <span class="text-slate-600 dark:text-slate-400">{e.program}</span>
             </li>
           ))}
         </ul>

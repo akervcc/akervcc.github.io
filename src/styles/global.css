@@ -3,6 +3,21 @@
 /* Enable dark mode via class */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* 強調色：沉穩的深藍 */
+@theme {
+  --color-brand-50: #eef4fb;
+  --color-brand-100: #d9e6f5;
+  --color-brand-200: #b6cdea;
+  --color-brand-300: #86abd9;
+  --color-brand-400: #5384c2;
+  --color-brand-500: #3366a8;
+  --color-brand-600: #24518d;
+  --color-brand-700: #1d4173;
+  --color-brand-800: #1a365e;
+  --color-brand-900: #172d4d;
+  --color-brand-950: #0f1d33;
+}
+
 
 /* Google Fonts - Noto Serif TC for headings */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap');
@@ -24,36 +39,36 @@
 @layer components {
   .prose h2 {
     font-family: 'Noto Serif TC', serif;
-    @apply text-xl font-semibold text-gray-900 dark:text-gray-100 mt-8 mb-4;
+    @apply text-xl font-semibold text-slate-900 dark:text-slate-100 mt-8 mb-4;
   }
 
   .prose h3 {
     font-family: 'Noto Serif TC', serif;
-    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mt-6 mb-3;
+    @apply text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-3;
   }
 
   .prose p {
-    @apply text-gray-600 dark:text-gray-400 leading-relaxed mb-4;
+    @apply text-slate-600 dark:text-slate-400 leading-relaxed mb-4;
   }
 
   .prose ul {
-    @apply list-disc list-inside text-gray-600 dark:text-gray-400 mb-4 space-y-2;
+    @apply list-disc list-inside text-slate-600 dark:text-slate-400 mb-4 space-y-2;
   }
 
   .prose ol {
-    @apply list-decimal list-inside text-gray-600 dark:text-gray-400 mb-4 space-y-2;
+    @apply list-decimal list-inside text-slate-600 dark:text-slate-400 mb-4 space-y-2;
   }
 
   .prose a {
-    @apply text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 underline;
+    @apply text-brand-700 dark:text-brand-300 hover:text-brand-800 dark:hover:text-brand-200 underline;
   }
 
   .prose code {
-    @apply bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-1.5 py-0.5 rounded text-sm;
+    @apply bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-1.5 py-0.5 rounded text-sm;
   }
 
   .prose pre {
-    @apply bg-gray-900 dark:bg-gray-950 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4;
+    @apply bg-slate-900 dark:bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto mb-4;
   }
 
   .prose pre code {
@@ -61,7 +76,7 @@
   }
 
   .prose blockquote {
-    @apply border-l-4 border-amber-300 dark:border-amber-600 pl-4 italic text-gray-500 dark:text-gray-400 my-4;
+    @apply border-l-4 border-brand-300 dark:border-brand-600 pl-4 italic text-slate-500 dark:text-slate-400 my-4;
   }
 
   .prose img {
@@ -69,45 +84,13 @@
   }
 
   .prose strong {
-    @apply text-gray-900 dark:text-gray-100;
+    @apply text-slate-900 dark:text-slate-100;
   }
 
   .prose li strong {
-    @apply text-gray-900 dark:text-gray-100;
+    @apply text-slate-900 dark:text-slate-100;
   }
 
-  /* Card flip effect */
-  .card-flip {
-    perspective: 1000px;
-  }
-
-  .card-flip-inner {
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-
-  .card-flip:hover .card-flip-inner {
-    transform: rotateY(180deg);
-  }
-
-  .card-front, .card-back {
-    backface-visibility: hidden;
-  }
-
-  .card-back {
-    transform: rotateY(180deg);
-  }
-
-  /* Poker suit decorators */
-  .suit-divider {
-    @apply flex items-center justify-center gap-4 py-4 text-amber-400 dark:text-amber-500 opacity-60;
-  }
-
-  .suit-divider::before,
-  .suit-divider::after {
-    content: '';
-    @apply flex-1 h-px bg-gray-200 dark:bg-gray-700;
-  }
 }
 
 /* Animations */
@@ -131,13 +114,6 @@
     animation: slideUp 0.5s ease-out 0.1s both;
   }
 
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-shuffle {
-    animation: shuffle 2s ease-in-out infinite;
-  }
 }
 
 @keyframes fadeIn {
@@ -156,12 +132,3 @@
   }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes shuffle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}

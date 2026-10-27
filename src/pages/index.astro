@@ -1,106 +1,85 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import PokerHero from '../components/PokerHero.astro'
 import { site } from '../data/site'
-import { skillGroups, yearsOfExperience } from '../data/profile'
+import { summary, skillGroups, yearsOfExperience } from '../data/profile'
 
-const traits = [
-  { icon: '♠️', label: '德州撲克愛好者' },
-  { icon: '🎹', label: '偶爾彈彈鋼琴' },
-  { icon: '🎮', label: '電玩休閒玩家' },
-  { icon: '🏛️', label: '古意派工程師' },
+const facts = [
+  { label: '開發經驗', value: `${yearsOfExperience} 年` },
+  { label: '主力技術', value: 'Java / Spring Boot' },
+  { label: '前端', value: 'Vue 2/3 · TypeScript' },
+  { label: '擅長領域', value: '交易系統 · 金流整合' },
 ]
+
+const domains = [
+  { title: '交易系統', body: '注單、交易、訂單管理與結算，處理高併發場景下的效能瓶頸。' },
+  { title: '金流整合', body: '第三方支付串接、幣別與法幣轉換、多幣別與多語系架構。' },
+  { title: '平台開發', body: 'B2B／B2C 平台、管理後台、API 設計與即時通訊系統整合。' },
+]
+
+const hobbies = ['德州撲克', '偶爾彈彈鋼琴', '電玩休閒玩家']
 ---
 
 <BaseLayout title={`${site.name}｜${site.title}`}>
-  <!-- 個人區：保留撲克古意風格 -->
-  <section class="py-16 md:py-24 bg-stone-50 dark:bg-gray-900">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-12">
-        <div class="flex-1">
-          <p class="text-amber-700 dark:text-amber-400 font-medium tracking-wide mb-4 animate-slide-up">— 穩扎穩打，細水長流 —</p>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 leading-tight animate-slide-up">
-            嗨，我是 <span class="text-amber-600 dark:text-amber-400">Aker</span>
-          </h1>
-          <p class="mt-6 text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed animate-slide-up-delay">
-            一個有點古意的軟體工程師，{yearsOfExperience} 年開發經驗。<br />
-            相信好的程式碼如同一手好牌——沉穩、精準、恰到好處。
-          </p>
+  <!-- Hero -->
+  <section class="border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-6 py-20 md:py-24 grid gap-12 md:grid-cols-[1.5fr_1fr] md:items-center">
+      <div>
+        <p class="text-sm font-medium tracking-[0.18em] uppercase text-brand-700 dark:text-brand-300 animate-slide-up">{site.title} · Taiwan</p>
+        <h1 class="mt-4 text-4xl md:text-5xl font-bold text-slate-900 dark:text-white animate-slide-up">嗨，我是 {site.name}</h1>
+        <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed animate-slide-up-delay">{summary}</p>
+        <div class="mt-8 flex flex-wrap gap-3 animate-slide-up-delay">
+          <a href="/experience" class="inline-flex items-center px-6 py-3 rounded-md bg-brand-800 text-white font-medium hover:bg-brand-900 dark:bg-brand-300 dark:text-brand-950 dark:hover:bg-brand-200 transition-colors">看工作經歷</a>
+          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-md border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors">聯絡我</a>
         </div>
-        <PokerHero />
       </div>
+
+      <dl class="rounded-xl border border-slate-200 dark:border-slate-800 divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900">
+        {facts.map((f) => (
+          <div class="px-6 py-4">
+            <dt class="text-xs tracking-[0.16em] uppercase text-slate-500">{f.label}</dt>
+            <dd class="mt-1 font-medium text-slate-900 dark:text-slate-100">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   </section>
-
-  <div class="suit-divider">♠ ♥ ♣ ♦</div>
-
-  <section class="py-8">
-    <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      {traits.map((t) => (
-        <div class="p-4">
-          <div class="text-3xl mb-2">{t.icon}</div>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{t.label}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <div class="suit-divider">♠ ♥ ♣ ♦</div>
 
   <section class="py-16">
     <div class="max-w-3xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">關於我</h2>
-
-      <div class="mt-8 prose prose-gray max-w-none">
-        <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-          我是 Aker，一個有點古意的軟體工程師。<br />
-          不追求花俏的技術潮流，相信穩扎穩打才能走得長遠。
-        </p>
-
-        <h2>我的工程哲學</h2>
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">關於我</h2>
+      <div class="mt-6 prose max-w-none">
         <p>
-          寫程式就像打德州撲克——不是每一手都要 All-in，重要的是讀懂局勢、控制風險、在對的時機做對的決定。我偏好務實的解決方案，不過度設計，但也不輕忽細節。
+          我偏好務實的解決方案：不過度設計，也不輕忽細節。先讀懂需求、控制風險，再在對的時機做對的技術決定。
         </p>
         <p>
           {yearsOfExperience} 年來從銀行電商專案、政府系統一路做到高併發交易平台與東南亞跨境金流，這些系統容不得差錯，培養了我對穩定性與安全性的執著。近兩年把 Claude Code 與 MCP 帶進日常開發，一個人也能交付完整的全端平台。
         </p>
-
-        <h2>專業領域</h2>
-        <ul>
-          <li><strong>博弈系統</strong> — 高併發、即時性、資金安全</li>
-          <li><strong>平台開發</strong> — 後台管理、API 設計、系統整合</li>
-          <li><strong>金融系統</strong> — 交易流程、風控機制、報表分析</li>
-        </ul>
-
-        <h2>工作之餘</h2>
-        <p>
-          下班後，我喜歡打幾把德州撲克，享受那種計算機率、揣摩對手的心理博弈。偶爾也會坐在鋼琴前彈彈簡單的曲子，讓腦袋放空一下。
-        </p>
-        <p>
-          電玩也是生活的調劑，從小玩到大，現在雖然時間少了，但還是會抽空玩玩喜歡的遊戲。
-        </p>
       </div>
 
-      <!-- Philosophy Quote -->
-      <div class="mt-12 p-6 bg-stone-50 dark:bg-gray-800 border-l-4 border-amber-500 rounded-r-lg">
-        <p class="text-gray-700 dark:text-gray-300 italic">
-          「不求一夜暴富，但求細水長流。」
-        </p>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-500">— 我的工程信條</p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-3">
+        {domains.map((d) => (
+          <div class="rounded-lg border border-slate-200 dark:border-slate-800 p-5">
+            <h3 class="font-semibold text-slate-900 dark:text-white">{d.title}</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{d.body}</p>
+          </div>
+        ))}
       </div>
+
+      <blockquote class="mt-12 border-l-4 border-brand-600 dark:border-brand-400 pl-5 py-1">
+        <p class="text-slate-700 dark:text-slate-300">「不求一夜暴富，但求細水長流。」</p>
+        <p class="mt-1 text-sm text-slate-500">— 我的工程信條</p>
+      </blockquote>
 
       <!-- Skills -->
-      <div class="mt-12">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">技術棧</h2>
-        <div class="mt-6 space-y-4">
+      <div class="mt-14">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">技術棧</h2>
+        <div class="mt-6 space-y-5">
           {skillGroups.map((g) => (
             <div>
-              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-2">{g.suit} {g.name}</h3>
+              <h3 class="text-xs font-medium text-slate-500 uppercase tracking-[0.16em] mb-2">{g.name}</h3>
               <div class="flex flex-wrap gap-2">
                 {g.skills.map((skill) => (
-                  <span class="px-3 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-full text-sm">
-                    {skill}
-                  </span>
+                  <span class="px-3 py-1 rounded-md text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{skill}</span>
                 ))}
               </div>
             </div>
@@ -108,9 +87,14 @@ const traits = [
         </div>
       </div>
 
-      <div class="mt-16 flex flex-wrap gap-4">
-        <a href="/experience" class="inline-flex items-center px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-colors">看完整經歷</a>
-        <a href="/projects" class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:border-amber-400 hover:text-amber-700 dark:hover:text-amber-400 transition-colors">查看作品</a>
+      <div class="mt-14">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">工作之餘</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-400">{hobbies.join('、')}。</p>
+      </div>
+
+      <div class="mt-14 flex flex-wrap gap-3">
+        <a href="/experience" class="inline-flex items-center px-6 py-3 rounded-md bg-brand-800 text-white font-medium hover:bg-brand-900 dark:bg-brand-300 dark:text-brand-950 dark:hover:bg-brand-200 transition-colors">看完整經歷</a>
+        <a href="/projects" class="inline-flex items-center px-6 py-3 rounded-md border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors">查看作品</a>
       </div>
     </div>
   </section>
