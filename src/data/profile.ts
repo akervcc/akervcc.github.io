@@ -30,10 +30,10 @@ export const profile = {
     quote: '「不求一夜暴富，但求細水長流。」',
     hobbies: '德州撲克、偶爾彈彈鋼琴、電玩休閒玩家。',
     skillGroups: [
-      { name: 'Backend', skills: skills.backend },
-      { name: 'Frontend', skills: skills.frontend },
-      { name: 'Tools', skills: skills.tools },
-      { name: 'Integration', skills: ['第三方支付 API', 'Google Maps API', 'Telegram API', 'WhatsApp API', 'Viber API'] },
+      { name: '後端', skills: skills.backend },
+      { name: '前端', skills: skills.frontend },
+      { name: '工具', skills: skills.tools },
+      { name: '系統整合', skills: ['第三方支付 API', 'Google Maps API', 'Telegram API', 'WhatsApp API', 'Viber API'] },
     ],
     education: [
       { period: '2014/05 – 2014/10', school: '資策會', program: 'Java 企業級軟體工程師養成班' },
